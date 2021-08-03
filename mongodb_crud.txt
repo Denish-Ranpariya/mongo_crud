@@ -1,0 +1,70 @@
+"C:\Program Files\MongoDB\Server\4.4\bin\mongo.exe"
+
+show dbs 
+ - to see databases
+
+use database_name
+ - use database
+
+db.studentData.insertOne({"name" : "Hitesh", "email" : "hitesh@hiteshchoudhary.com", "contact" : "9999999999", "isVerified" : true, })
+ - insert data
+
+db.studentData.find().pretty()
+ - see all data present in database
+
+db.studentData.deleteOne({email : "hitesh@hiteshchoudhary.com"})
+ - to delete one doc but passed value should be unique
+
+db.studentData.updateOne({email : "ranpariyadenish1512@gmail.com"}, {$set : {name : "Denish Ranpariya"}})
+ - to update the record, first one is to identify and second is the data to be changed
+
+db.studentData.updateMany({isVerified : true}, {$set : {markToBeDeleted : true}})
+ - to update many records
+
+db.studentData.deleteMany({delete : true})
+ -to delete many records
+
+db.studentData.insertMany([
+{
+	"name": "Hitesh",
+	"email": "hitesh@hiteshchoudhary.com",
+	"contact": "9999999999",
+	"courseCount": 4,
+	"isVerified": true
+},
+{
+	"name": "Mark",
+	"email": "mark@example.com",
+	"contact": "9999999888",
+	"courseCount": 2,
+	"isVerified": false
+}
+])
+ - to insert many records, we will pass list of objects in the function
+
+db.studentData.find({courseCount: 2}).pretty()
+ - find records with condition
+
+db.studentData.find({courseCount: {$gt: 1}}).pretty()
+ - greater than operator
+
+db.studentData.find().forEach((student) => {printjson(student)})
+ - to print all the records 
+
+db.studentData.find({}, {email: 1, _id : 0, name: 1}).toArray()
+ - will give email and name and convert it into array of objects
+
+ db.studentData.updateMany({}, {$set : {thumbnail : {small: 50, medium: 100, large: 200}}})
+ - object as a value in key value pair
+
+ db.studentData.find({"thumbnail.medium" : 100}).pretty()
+ - search from inner property (IMP: when use . always use "")
+
+ db.studentData.updateOne({name: "Mark"}, { $set: {lastlogin: ["Monday", "Tuesday", "Wednesday"]}})
+ - array as a value in key value pair
+
+db.studentData.findOne({name: "Mark"}).lastlogin
+ - to access array
+
+db.studentData.findOne({name: "Mark"}).lastlogin[1]
+ - to access element in array
